@@ -47,9 +47,10 @@ header {
 }
 
 #localization h1 {
-  color: #0288d1;
+  color: white;
   display: inline;
   text-decoration: underline;
+  font-weight: bolder;
 }
 .weather-app-data {
   display: flex;
@@ -57,8 +58,8 @@ header {
   align-items: center;
   gap: 10px;
   background: linear-gradient(to bottom, #6666ff 0%, #99ccff 93%);
-  padding: 20px;
-  padding-top: 7px;
+  padding-bottom: 20px;
+  padding-top: 5px;
   border-radius: 20px;
 }
 
@@ -86,7 +87,6 @@ header {
 .info {
   display: flex;
   justify-content: space-around;
-  width: 100%;
   gap: 20px;
 }
 
@@ -101,7 +101,7 @@ header {
 }
 
 .info p {
-  font-size: 18px;
+  font-size: 15px;
   margin: 0;
 }
 
@@ -110,6 +110,7 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  gap: 10px;
 }
 
 .weather-temperature-forecast {
