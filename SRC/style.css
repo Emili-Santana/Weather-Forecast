@@ -49,6 +49,7 @@ header {
 #localization h1 {
   color: #0288d1;
   display: inline;
+  text-decoration: underline;
 }
 .weather-app-data {
   display: flex;
@@ -97,7 +98,6 @@ header {
 
 .info h2 {
   font-size: 25px;
-  margin-bottom: 5px;
 }
 
 .info p {
