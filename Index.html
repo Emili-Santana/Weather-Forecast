@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <title>Weather Forecast</title>
 </head>
 
@@ -22,8 +23,7 @@
             <div class="weather-app-data">
 
                 <div id="localization">
-                    <h1 class="city"> Paris - </h1>
-                    <h1 class="country"> FR </h1>
+                    <h1 class="city"> Paris </h1>
                 </div>
 
                 <div class="info">
@@ -51,8 +51,11 @@
                 </div>
 
                 <div class="weather-temperature-day">
-                    <div id="day">Sun</div>
-                    <div id="Icon">⛅</div>
+                    <div id="week-day">Sun</div>
+                    <div id="temp_img"> <img
+                            src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" alt=""
+                            width="50px">
+                    </div>
                     <div id="value-temp">24°C</div>
                     <div id="description">sunny</div>
                     <br>
