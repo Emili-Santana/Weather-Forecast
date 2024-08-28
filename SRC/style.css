@@ -58,7 +58,7 @@ header {
   align-items: center;
   gap: 10px;
   background: linear-gradient(to bottom, #6666ff 0%, #99ccff 93%);
-  padding-bottom: 20px;
+  padding-bottom: 18px;
   padding-top: 5px;
   border-radius: 20px;
 }
