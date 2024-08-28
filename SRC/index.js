@@ -31,15 +31,65 @@ function updateCity(event) {
   event.preventDefault();
 
   let newCity = document.querySelector("#search-form-input").value;
-
-  newCity = newCity.trim().toUpperCase();
+  newCity = newCity[0].trim().toUpperCase() + newCity.substring(1);
 
   let cityElement = document.querySelector(".city");
 
   cityElement.textContent = newCity;
+  document.querySelector(".search-form").addEventListener("submit", updateCity);
 }
 
+// Adiciona o evento de submit ao formulário
 document.querySelector(".search-form").addEventListener("submit", updateCity);
+//API current temperatura
+function displayTemperature(response) {
+  let temperature = Math.round(response.data.temperature.current);
+  let tempSensation = Math.round(response.data.temperature.feels_like);
+  let description = response.data.condition.description;
+  let iconElement = document.querySelector("#temp_img");
+  let humidity = Math.round(response.data.temperature.humidity);
+  let wind = Math.round(response.data.wind.speed);
+  let city = response.data.city;
+  let country = response.data.country;
+
+  let countryElement = document.querySelector(".country");
+  countryElement.innerHTML = `- ${country}`;
+
+  let valueElement = document.querySelector("#value-temp");
+  valueElement.innerHTML = `${temperature}°C`;
+  console.log(valueElement);
+
+  iconElement.innerHTML = `<img src="${response.data.condition.icon_url}"id="temp_img" />`;
+
+  let minTempElement = document.querySelector("#temp-sensation");
+  minTempElement.innerHTML = `${tempSensation} °C`;
+
+  let descriptionElement = document.querySelector("#description");
+  descriptionElement.innerHTML = `${description}`;
+
+  let humidityElement = document.querySelector("#humidity");
+  humidityElement.innerHTML = `${humidity}%`;
+
+  let windElement = document.querySelector("#wind");
+  windElement.innerHTML = `${wind}km`;
+}
+
+function searchCity(event) {
+  event.preventDefault();
+  let city = document
+    .querySelector("#search-form-input")
+    .value.trim()
+    .toUpperCase();
+
+  let apiKey = "co1932ee5cba3475f06de51eb085140t";
+
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayTemperature);
+}
+
+let cityForm = document.querySelector(".search-form");
+cityForm.addEventListener("submit", searchCity);
 
 //Date - Week Day - Hour
 
@@ -73,10 +123,3 @@ function displayDateTime() {
 
 displayDateTime();
 setInterval(displayDateTime, 1000);
-
-//API current temperatura
-function getForecast(city) {
-  let apiKey = "co1932ee5cba3475f06de51eb085140t";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${metric}`;
-  console.log(apiUrl);
-}
