@@ -1,31 +1,3 @@
-// Add forecast information using JS
-function displayForecast() {
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  let forecastHtml = "";
-
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      ` 
-      <div class="weather-forecast-day">
-                            <div class="weather-forecast-date">${day}</div>
-                             <div id="temp_img"> <img
-                            src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" alt="" width="50%">
-                    </div>
-                            <div class="weather-forecast-temperatures">
-                                <div class="weather-forecast-temperature">
-                                    <strong>15º</strong>
-                                </div>
-                                <div class="weather-forecast-temperature">9º</div>
-                            </div>
-                        </div>
-`;
-  });
-  let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = forecastHtml;
-}
-displayForecast();
-
 // changing H1
 function updateCity(event) {
   event.preventDefault();
@@ -39,8 +11,9 @@ function updateCity(event) {
   document.querySelector(".search-form").addEventListener("submit", updateCity);
 }
 
-// Adiciona o evento de submit ao formulário
+// Adds the submit event to the form
 document.querySelector(".search-form").addEventListener("submit", updateCity);
+
 //API current temperatura
 function displayTemperature(response) {
   let temperature = Math.round(response.data.temperature.current);
@@ -57,12 +30,11 @@ function displayTemperature(response) {
 
   let valueElement = document.querySelector("#value-temp");
   valueElement.innerHTML = `${temperature}°C`;
-  console.log(valueElement);
 
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}"id="temp_img" />`;
 
   let minTempElement = document.querySelector("#temp-sensation");
-  minTempElement.innerHTML = `${tempSensation} °C`;
+  minTempElement.innerHTML = `${tempSensation}°C`;
 
   let descriptionElement = document.querySelector("#description");
   descriptionElement.innerHTML = `${description}`;
@@ -71,9 +43,12 @@ function displayTemperature(response) {
   humidityElement.innerHTML = `${humidity}%`;
 
   let windElement = document.querySelector("#wind");
-  windElement.innerHTML = `${wind}km`;
+  windElement.innerHTML = `${wind} km/h`;
+
+  getForecast(response.data.city); //forecast information
 }
 
+// curremt API
 function searchCity(event) {
   event.preventDefault();
   let city = document
@@ -91,7 +66,56 @@ function searchCity(event) {
 let cityForm = document.querySelector(".search-form");
 cityForm.addEventListener("submit", searchCity);
 
-//Date - Week Day - Hour
+//API forecast temperature
+function getForecast(city) {
+  let apiKey = "co1932ee5cba3475f06de51eb085140t";
+
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayForecast);
+}
+
+// Add forecast information on HTML using JS winth response from API
+
+function formatDay(timestamp) {
+  //convert the API info) to the corresponding day of the week
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[date.getDay()];
+}
+
+function displayForecast(response) {
+  let forecastHtml = "";
+
+  response.data.daily.forEach(function (day, index) {
+    if (index > 0 && index < 7) {
+      //Limits the display to just 6 days (indices from 1 to 6).
+      forecastHtml = forecastHtml += `
+      <div class="weather-forecast-day">
+        <div class="weather-forecast-date">${formatDay(day.time)}</div>
+
+        <img src="${day.condition.icon_url}" class="weather-forecast-icon" />
+        <div class="weather-forecast-temperatures">
+          <div class="weather-forecast-temperature">
+            <strong>${Math.round(day.temperature.maximum)}º</strong>
+          </div>
+          <div class="weather-forecast-temperature">${Math.round(
+            day.temperature.minimum
+          )}º</div>
+        </div>
+      </div>
+    `;
+    }
+  });
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
+
+getForecast("Paris"); //calls the function with a defined city so that the fields entered with JD already appear on the start screen
+
+//Add Date - Week Day - Hour
 
 function displayDateTime() {
   let date = new Date();
@@ -122,4 +146,4 @@ function displayDateTime() {
 }
 
 displayDateTime();
-setInterval(displayDateTime, 1000);
+setInterval(displayDateTime, 1000); // Calls the  displayDateTime function every second
