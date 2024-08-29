@@ -1,6 +1,6 @@
 body {
   font-family: "Arial", sans-serif;
-  height: 1000px;
+  height: 900px;
   background: linear-gradient(to bottom, #6666ff 0%, #99ccff 93%);
 }
 
@@ -65,14 +65,15 @@ header {
 
 .weather-app-data :hover {
   transform: scale(1.1);
-  opacity: 90%;
+  opacity: 80%;
 }
 
 .weather-temperature-day {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
+  width: 60px;
 }
 
 #Icon {
@@ -83,11 +84,15 @@ header {
   font-size: 40px;
   font-weight: bold;
 }
+#temp-sensation {
+  font-weight: bold;
+}
 
 .info {
   display: flex;
   justify-content: space-around;
-  gap: 20px;
+  text-align: center;
+  gap: 30px;
 }
 
 .info div {
@@ -140,6 +145,10 @@ header {
   color: #0288d1;
 }
 
+.weather-forecast-icon {
+  width: 80px;
+  text-align: center;
+}
 footer {
   margin-top: 20px;
   font-size: 14px;
