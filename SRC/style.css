@@ -1,10 +1,16 @@
 body {
   font-family: "Arial", sans-serif;
-  height: 900px;
   background: linear-gradient(to bottom, #6666ff 0%, #99ccff 93%);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .weather-forecast {
+  width: 90%;
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
@@ -22,6 +28,7 @@ header {
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .search-form input[type="search"] {
@@ -30,6 +37,8 @@ header {
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 60%;
+  width: 100%;
+  max-width: 300px;
 }
 
 .search-form input[type="submit"] {
@@ -40,6 +49,7 @@ header {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  max-width: 100px;
 }
 
 .search-form input[type="submit"]:hover {
@@ -61,19 +71,21 @@ header {
   padding-bottom: 18px;
   padding-top: 5px;
   border-radius: 20px;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
 .weather-app-data :hover {
-  transform: scale(1.1);
-  opacity: 80%;
+  transform: scale(1.005);
+  opacity: 0.8;
 }
 
 .weather-temperature-day {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  width: 60px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 #Icon {
@@ -92,7 +104,8 @@ header {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  gap: 30px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .info div {
@@ -115,18 +128,32 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
-  gap: 0px;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
 }
+
 .weather-temperature-forecast {
   margin: 0 10px;
   text-align: center;
 }
+/* Media Queries: I adjusted the layout for smaller screens, changing the behavior of the elements so that they stack instead of being side by side.*/
+
+@media screen and (max-width: 768px) {
+  .weather-forecast-container {
+    justify-content: center;
+  }
+}
 
 .weather-forecast-day {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0px;
+  width: 80px;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 480px) {
+  #value-temp {
+    font-size: 30px;
+  }
 }
 
 .weather-forecast-date {
